@@ -3,7 +3,7 @@ import {
    Routes,
    Route,
 } from "react-router-dom";
-import './App.css'
+import './index.css'
 import LoginForm from './pages/LoginForm'
 import Dashboard from './pages/Dashboard'
 import Enrollment from "./pages/Enrollment";
