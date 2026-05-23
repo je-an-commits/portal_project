@@ -98,7 +98,7 @@ export default function SideBar() {
             <div className="flex gap-3 mb-8 px-3">
                <img src="./logo.png" className="h-9 w-auto" />
                <div>
-                  <h1 className="font-black text-white">
+                  <h1 className="font-black dark:text-white">
                      STUDENT PORTAL
                   </h1>
                   <h3 className="text-gray-400 text-[12px]">
