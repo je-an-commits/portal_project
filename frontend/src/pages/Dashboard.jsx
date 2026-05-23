@@ -31,7 +31,7 @@ export default function Dashboard() {
                             </div>
                             <div>
                                 <h1 className="text-[12px] font-bold text-green-400">ACADEMIC PROGRAM</h1>
-                                <p className="text-l font-black text-gray-200">BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY</p>
+                                <p className="text-sm lg:text-l font-black text-gray-200">BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY</p>
                             </div>
                         </div>
                     </div>
