@@ -37,7 +37,33 @@ export default function Dashboard() {
                     </div>
 
                     <div className="flex flex-col lg:flex-row gap-5">
-                        <div className="flex flex-col pb-3 w-full shadow-sm rounded-2xl">
+                        
+                        <div className="flex flex-col w-full align-center justify-center p-5 shadow-sm rounded-2xl">
+                            <div className="flex justify-between w-full border-b border-gray-200 pb-4 mb-5">
+                                <h3 className="text-[16px] font-bold text-green-900">NEWS & UPDATES</h3>
+                                <a href="" className="text-[12px] font-bold text-gray-500">SEE ALL</a>
+                            </div>
+
+                            <div className="flex px-5 align-center justify-center text-center">
+                                <div className="p-2 w-10 h-10 shadow-sm  rounded-full">
+                                    <NotepadText size={24} className="text-gray-300" />
+                                </div> 
+                            </div>
+                            <p className="text-center text=[14px]">No recent announcements.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex flex-col lg:w-[30%] gap-5">
+                    <div className="flex flex-col text-center justify-center align-center shadow-sm rounded-2xl">
+                        <h3 className="text-[10px]  text-gray-200 rounded-t-2xl font-bold bg-yellow-600 w-full overflow-hidden py-5">ACTIVE TERM</h3>
+                        <div className="flex flex-col gap-2 p-5">
+                            <h2 className="text-l font-bold text-slate-700">A.Y 2025-2026</h2>
+                            <h1 className="text-xl font-black text-green-900">SECOND SEMESTER</h1>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col pb-3 w-full shadow-sm rounded-2xl">
                             <div className="flex px-5 text-[14px] justify-between text-gray-700 rounded-t-2xl font-bold bg-green-100 w-full overflow-hidden py-5 ">
                                 <div className="flex gap-2">
                                     <Clock />
@@ -71,31 +97,6 @@ export default function Dashboard() {
                                 Book Appointment
                             </button>
                         </div>
-
-                    </div>
-                </div>
-
-                <div className="flex flex-col lg:w-[30%] gap-5">
-                    <div className="flex flex-col text-center justify-center align-center shadow-sm rounded-2xl">
-                        <h3 className="text-[10px]  text-gray-200 rounded-t-2xl font-bold bg-yellow-600 w-full overflow-hidden py-5">ACTIVE TERM</h3>
-                        <div className="flex flex-col gap-2 p-5">
-                            <h2 className="text-l font-bold text-slate-700">A.Y 2025-2026</h2>
-                            <h1 className="text-xl font-black text-green-900">SECOND SEMESTER</h1>
-                        </div>
-                    </div>
-                    <div className="flex flex-col align-center justify-center p-5 shadow-sm rounded-2xl">
-                        <div className="flex justify-between w-full border-b border-gray-200 pb-4 mb-5">
-                            <h3 className="text-[16px] font-bold text-green-900">NEWS & UPDATES</h3>
-                            <a href="" className="text-[12px] font-bold text-gray-500">SEE ALL</a>
-                        </div>
-
-                        <div className="flex px-5 align-center justify-center text-center">
-                            <div className="p-2 w-10 h-10 shadow-sm  rounded-full">
-                                <NotepadText size={24} className="text-gray-300" />
-                            </div> 
-                        </div>
-                        <p className="text-center text=[14px]">No recent announcements.</p>
-                    </div>
                 </div>
                 
             </main>

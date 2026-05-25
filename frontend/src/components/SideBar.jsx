@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink,useNavigate, useLocation } from "react-router-dom";
 import {
    ClipboardPenLine,
    Clock,
@@ -15,6 +15,15 @@ import {
 export default function SideBar() {
    const [open, setOpen] = useState(false);
    const navigate = useNavigate();
+   const location = useLocation();
+
+   function getPageTitle() {
+      const current = sidebarItems.find(
+         (item) => item.href === location.pathname
+      );
+
+      return current ? current.name : "Student Portal";
+   }
 
    const sidebarItems = [
       {
@@ -59,12 +68,12 @@ export default function SideBar() {
    }
    return (
     <>
-      {/* Top bar (mobile) */}
+         {/* Top bar (mobile) */}
          <div className="flex lg:hidden p-4 justify-between align-center bg-green-900 text-gray-200 fixed top-0  w-full">
             <button onClick={() => setOpen(true)}>
                <Menu className="cursor-pointer" size={24} />
             </button>
-            <h1 className="text-bold">Dashboard</h1>
+            <h1 className="text-bold">{getPageTitle()}</h1>
             <img src="./logo.png" alt=""  width={30} height={20}/>
          </div>
 
@@ -120,6 +129,7 @@ export default function SideBar() {
                                     ? "bg-green-800 text-white"
                                     : "text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-neutral-800"
                                 }`
+
                             }
                         >
                            {item.icon}
@@ -138,6 +148,7 @@ export default function SideBar() {
                </div>
             </a>
          </aside>
+
         </>
    );
 };

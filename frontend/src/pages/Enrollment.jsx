@@ -25,7 +25,7 @@ const datas = [
             {/* Main Section */}
 
             <main className="mt-20 lg:mt-0 p-5 min-h-[calc(100vh-80px)]">
-                <div className="flex justify-between">
+                <div className="flex flex-col gap-4 lg:flex-row justify-between">
                     <div>
                         <h1 className="font-black text-l lg:text-2xl text-slate-700">
                             VIRTUAL REGISTRATION FORM
@@ -33,7 +33,7 @@ const datas = [
                         <p className="text-gray-600 text-[12px] lg:text-[16px]">Manage your registration form here.</p>
                     </div>
                     <div>
-                        <button className="flex gap-2 px-3 py-2 bg-red-700 rounded-2xl font-bold text-gray-200 text-[8px] lg:text-[12px]  cursor-pointer hover:bg-red-800"><span><FileDown className="w-3 h-3 lg:w-5 lg:h-5" /> </span>DOWNLOAD PDF</button>
+                        <button className="flex w-full justify-center gap-2 px-3 py-2 bg-red-700 rounded-md lg:rounded-2xl font-bold text-gray-200 text-[14px] lg:text-[12px]  cursor-pointer hover:bg-red-800"><span><FileDown className="w-6 h-6 lg:w-5 lg:h-5" /> </span>DOWNLOAD PDF</button>
                     </div>
                 </div>
                 
@@ -43,7 +43,7 @@ const datas = [
                     <div className="w-full max-w-6xl mx-auto">
                         
                         {/* HEADER */}
-                        <div className="flex flex-col sm:flex-row items-center justify-center p-4 gap-4 sm:gap-6 text-center">
+                        <div className="flex flex-row items-center justify-center p-4 gap-4 sm:gap-6 text-center">
                             <img
                                 className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
                                 src="/logo.png"
@@ -51,15 +51,15 @@ const datas = [
                             />
 
                             <div>
-                                <h6 className="text-[9px] sm:text-[10px] uppercase">
+                                <h6 className="text-[9px] lg:text-[10px] uppercase">
                                     Republic of the Philippines
                                 </h6>
 
-                                <h6 className="text-[18px] sm:text-[24px] uppercase font-black text-green-900 leading-tight">
+                                <h6 className="text-[16px] lg:text-[24px] uppercase font-black text-green-900 leading-tight">
                                     CAVITE STATE UNIVERSITY
                                 </h6>
 
-                                <h6 className="text-[10px] sm:text-[12px] uppercase font-bold">
+                                <h6 className="text-[10px] lg:text-[12px] uppercase font-bold">
                                     Tanza Campus
                                 </h6>
                             </div>
@@ -82,23 +82,23 @@ const datas = [
                         <div className="space-y-2 mt-6">
 
                             {/* ROW 1 */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-5 border-b border-slate-300">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-5 font-bold border-b border-slate-300">
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         Student Number
                                     </h5>
                                     <h5 className="text-sm">202315112</h5>
                                 </div>
 
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         Semester
                                     </h5>
                                     <h5 className="text-sm">Second Semester</h5>
                                 </div>
 
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         School Year
                                     </h5>
                                     <h5 className="text-sm">2025-2026</h5>
@@ -106,9 +106,9 @@ const datas = [
                             </div>
 
                             {/* ROW 2 */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-5 border-b border-slate-300">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-5 font-bold border-b border-slate-300">
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         Student Name
                                     </h5>
                                     <h5 className="text-sm break-words">
@@ -117,14 +117,14 @@ const datas = [
                                 </div>
 
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         Encoder
                                     </h5>
                                     <h5 className="text-sm">E-COPY / SYSTEM</h5>
                                 </div>
 
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         Date
                                     </h5>
                                     <h5 className="text-sm break-words">
@@ -134,9 +134,9 @@ const datas = [
                             </div>
 
                             {/* ROW 3 */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-5 border-b border-slate-300">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-5 font-bold border-b border-slate-300">
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         Course & Year
                                     </h5>
 
@@ -146,14 +146,14 @@ const datas = [
                                 </div>
 
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         Section
                                     </h5>
                                     <h5 className="text-sm">Two</h5>
                                 </div>
 
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         Major
                                     </h5>
                                     <h5 className="text-sm">N/A</h5>
@@ -161,16 +161,16 @@ const datas = [
                             </div>
 
                             {/* ROW 4 */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-5 border-b border-slate-300">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-5 font-bold border-b border-slate-300">
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         Scholarship
                                     </h5>
                                     <h5 className="text-sm">RA 10931</h5>
                                 </div>
 
                                 <div className="uppercase">
-                                    <h5 className="font-bold text-green-900 text-[12px]">
+                                    <h5 className="text-green-900 text-[12px]">
                                         Total Units
                                     </h5>
                                     <h5 className="text-sm">21</h5>
@@ -178,8 +178,8 @@ const datas = [
                             </div>
 
                             {/* ROW 5 */}
-                            <div className="py-5 border-b border-slate-300 uppercase">
-                                <h5 className="font-bold text-green-900 text-[12px]">
+                            <div className="py-5 border-b border-slate-300 font-bold uppercase">
+                                <h5 className="text-green-900 text-[12px]">
                                     Address
                                 </h5>
 
@@ -191,8 +191,10 @@ const datas = [
                         </div>
                     </div>
 
+
                     {/* TABLE */}
                     <div className="w-full max-w-6xl mx-auto mt-8">
+                        <h1 className="text-[16px] sm:text-[20px] font-bold text-green-900 mb-5 w-full text-center underline uppercase">Subjects</h1>
                         <div className="border border-slate-200 rounded-md overflow-x-auto">
                             <table className="min-w-[700px] w-full">
                                 <thead className="text-slate-900 text-left text-xs sm:text-sm font-semibold border-b border-slate-300 whitespace-nowrap">
