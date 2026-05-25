@@ -38,8 +38,8 @@ export default function Dashboard() {
 
                     <div className="flex flex-col lg:flex-row gap-5">
                         
-                        <div className="flex flex-col w-full align-center justify-center p-5 shadow-sm rounded-2xl">
-                            <div className="flex justify-between w-full border-b border-gray-200 pb-4 mb-5">
+                        <div className="flex flex-col w-full align-center justify-center border border-green-900 p-5 shadow-sm rounded-2xl">
+                            <div className="flex justify-between w-full border-b border-green-900 pb-4 mb-5">
                                 <h3 className="text-[16px] font-bold text-green-900">NEWS & UPDATES</h3>
                                 <a href="" className="text-[12px] font-bold text-gray-500">SEE ALL</a>
                             </div>

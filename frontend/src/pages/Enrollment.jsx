@@ -24,10 +24,10 @@ const datas = [
             </div>
             {/* Main Section */}
 
-            <main className="mt-20 lg:mt-0 p-5 min-h-[calc(100vh-80px)]">
+            <main className="mt-15 lg:mt-0 p-5 min-h-[calc(100vh-80px)]">
                 <div className="flex flex-col gap-4 lg:flex-row justify-between">
                     <div>
-                        <h1 className="font-black text-l lg:text-2xl text-slate-700">
+                        <h1 className="font-black text-lg lg:text-2xl text-slate-700">
                             VIRTUAL REGISTRATION FORM
                         </h1>
                         <p className="text-gray-600 text-[12px] lg:text-[16px]">Manage your registration form here.</p>
