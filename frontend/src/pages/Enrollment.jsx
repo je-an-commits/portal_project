@@ -18,27 +18,31 @@ export default function Enrollment() {
     );
     
     useEffect(() => {
-        if(!user) return;
+        if(!user?.id) return;
         const fetchData = async () => {
-            const resSem = await api.get("/student/semester");
+            try {
+                const resSem = await api.get("/student/semester");
 
-            const semester = resSem.data.semesters;
+                const semester = resSem.data.semesters;
 
-            setSem(semester);
+                setSem(semester);
 
-            const [resSubs, resInfo] = await Promise.all([
-                api.get(
-                    `/student/subjects/${user.id}/${semester.semester}/${semester.acad_year}`
-                ),
-                api.get(`/student/info/${user.id}`),
-            ]);
+                const [resSubs, resInfo] = await Promise.all([
+                    api.get(
+                        `/student/subjects/${user.id}/${semester.semester}/${semester.acad_year}`
+                    ),
+                    api.get(`/student/info/${user.id}`),
+                ]);
 
-            setInfo(resInfo.data.user);
-            setSubs(resSubs.data.subjects);
+                setInfo(resInfo.data.user);
+                setSubs(resSubs.data.subjects);
+            } catch(err) {
+                console.error("Failed to fetch enrollment data:", err)
+            }
         };
 
         fetchData();
-    }, [user]);
+    }, [user?.id]);
 
     useEffect(() => {
         const formatDateTime = () => {

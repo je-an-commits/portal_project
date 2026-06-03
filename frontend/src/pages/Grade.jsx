@@ -10,12 +10,17 @@ export default function Grade() {
     const { user, api } = useAuth();
 
     useEffect(() => {
+        if(!user?.id) return;
         const fetchData = async () => {
-            const res = await api.get(`/student/grades/${user.id}`)
-            setGr(res.data.grades)
+            try {
+                const res = await api.get(`/student/grades/${user.id}`)
+                setGr(res.data.grades)
+            } catch(err) {
+                console.error("Failed to fetch grades:", err)
+            }
         };
         fetchData();
-    }, []);
+    }, [user?.id]);
     
    return (
       <>

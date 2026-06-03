@@ -8,19 +8,23 @@ export default function Course() {
    const [ sem, setSem ] = useState([]);
    const { user, api } = useAuth();
    useEffect(() => {
-        if(!user) return;
+        if(!user?.id) return;
         const fetchData = async () => {
-            const resSem = await api.get("/student/semester");
-            const semester = resSem.data.semesters;
-            setSem(semester);
+            try {
+                const resSem = await api.get("/student/semester");
+                const semester = resSem.data.semesters;
+                setSem(semester);
 
-            if(!semester) return;
-            const resSubs = await api.get(`/student/subjects/${user.id}/${semester.semester}/${semester.acad_year}`)
-            setSubs(resSubs.data.subjects)
+                if(!semester) return;
+                const resSubs = await api.get(`/student/subjects/${user.id}/${semester.semester}/${semester.acad_year}`)
+                setSubs(resSubs.data.subjects)
+            } catch(err) {
+                console.error("Failed to fetch course data:", err)
+            }
         };
 
         fetchData();
-    }, [user]);
+    }, [user?.id]);
    return (
       <>
          <SideBar />

@@ -11,22 +11,26 @@ export default function Dashboard() {
    const [ loading, setLoading] = useState(true);
 
    useEffect(() => {
-        if(!user) return;
-        const fetchData = async () => {
-            try{
-                const [resSem, resProg ] = await Promise.all([
-                    api.get("/student/semester"),
-                    api.get(`/student/program/${user.id}`)
-                ]) 
-                setSem(resSem.data.semesters)
-                setProg(resProg.data.prog)
-            }finally{
-                setLoading(false)
-            } 
+    if (!user?.id) return;
+
+    const fetchData = async () => {
+            try {
+            const [resSem, resProg] = await Promise.all([
+                api.get("/student/semester"),
+                api.get(`/student/program/${user.id}`)
+            ]);
+
+            setSem(resSem.data.semesters);
+            setProg(resProg.data.prog);
+            } catch(err) {
+            console.error("Failed to fetch dashboard data:", err)
+            } finally {
+            setLoading(false);
+            }
         };
 
         fetchData();
-    }, [user]);
+    }, [user?.id]);
     if(loading){
         return <div>Loading...</div>
     }
