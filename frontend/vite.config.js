@@ -8,6 +8,9 @@ export default defineConfig({
     react(),
     tailwindcss(), 
   ],
+  server: {
+    allowedHosts: ["heartbroken-mattie-cuter.ngrok-free.dev"],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
