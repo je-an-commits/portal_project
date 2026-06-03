@@ -8,20 +8,29 @@ export default function Dashboard() {
    const { user, api } = useAuth();
    const [ sem, setSem ] = useState([]);
    const [ prog, setProg] = useState([]);
+   const [ loading, setLoading] = useState(true);
 
    useEffect(() => {
-    if(!user || !sem) return;
+        if(!user) return;
         const fetchData = async () => {
-            const [resSem, resProg ] = await Promise.all([
-                api.get("/student/semester"),
-                api.get(`/student/program/${user.id}`)
-            ]) 
-            setSem(resSem.data.semesters)
-            setProg(resProg.data.prog)
+            try{
+                const [resSem, resProg ] = await Promise.all([
+                    api.get("/student/semester"),
+                    api.get(`/student/program/${user.id}`)
+                ]) 
+                setSem(resSem.data.semesters)
+                setProg(resProg.data.prog)
+            }finally{
+                setLoading(false)
+            }
+            
         };
 
         fetchData();
-    }, [user, sem]);
+    }, [user]);
+    if(loading){
+        return <div>Loading...</div>
+    }
    return (
       <>
         <SideBar />
