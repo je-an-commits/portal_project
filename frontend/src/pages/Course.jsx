@@ -5,19 +5,21 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 export default function Course() {
    const [subs, setSubs] = useState([])
-   const [ sem, setSem ] = useState(() => {
-      const stored = localStorage.getItem("sem");
-      return stored ? JSON.parse(stored) : null;
-   });
+   const [ sem, setSem ] = useState([]);
    const { user, api } = useAuth();
    useEffect(() => {
         const fetchData = async () => {
-            const resSubs = await api.get(`/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`)
+            const resSem = await api.get("/student/semester");
+            const semester = resSem.data.semesters;
+            setSem(semester);
+
+            if(!semester) return;
+            const resSubs = await api.get(`/student/subjects/${user.id}/${sem.semester}/${sem.acad_year}`)
             setSubs(resSubs.data.subjects)
         };
 
         fetchData();
-    }, []);
+    }, [sem]);
    return (
       <>
          <SideBar />
@@ -46,7 +48,7 @@ export default function Course() {
                <div className="w-full max-w-7xl mx-auto mt-8">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 p-4 sm:p-5 rounded-t-2xl bg-green-900">
                      <h1 className="text-[12px] sm:text-[16px] font-bold text-white uppercase">Enrolled Subjects</h1>
-                     <h1 className="text-[10px] sm:text-[14px] font-bold text-yellow-400 uppercase whitespace-nowrap">{sem?.[0].semester + " | " + sem?.[0].acad_year}</h1>
+                     <h1 className="text-[10px] sm:text-[14px] font-bold text-yellow-400 uppercase whitespace-nowrap">{sem.semester + " | " + sem.acad_year}</h1>
                   </div>
                         
                         <div className="border border-slate-200 rounded-md overflow-x-auto">

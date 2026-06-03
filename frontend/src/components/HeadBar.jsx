@@ -10,7 +10,7 @@ export default function HeadBar() {
     const navigate = useNavigate();
 
     const logout = () => {
-        sessionStorage.clear();
+        localStorage.clear();
         navigate("/")
     }
     return(

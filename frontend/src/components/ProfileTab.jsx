@@ -69,7 +69,8 @@ export function TabsLine(props) {
      
    }
 
-// 5/31/2026
+   console.log(props)
+
   return (
     <Tabs defaultValue="overview">
       <TabsList variant="line">
@@ -100,7 +101,7 @@ export function TabsLine(props) {
               <div className="flex flex-col gap-5 lg:flex-row lg:gap-10 xl:gap-50 ">
                 <div className="flex flex-col gap-1">
                 <h1 className="text-[10px] text-gray-500 font-bold">FULL NAME</h1>
-                <p className="uppercase lg:text-[14px] font-bold">{props.info.last_name + ", " + props.info.first_name}</p>
+                <p className="uppercase lg:text-[14px] font-bold">{props.user.last_name + ", " + props.user.first_name}</p>
               </div>
               <div className="flex flex-col gap-1 ">
                 <h1 className="text-[10px] text-gray-500 font-bold">STUDENT NUMBER</h1>

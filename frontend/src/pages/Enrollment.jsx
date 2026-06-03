@@ -6,32 +6,38 @@ import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 
 export default function Enrollment() {
+    const { user, api } = useAuth();
     const [dateTime, setDateTime] = useState('');
+    const [ sem, setSem ] = useState([]);
     const [ info, setInfo ] = useState([]);
     const [subs, setSubs] = useState([])
-    const [ sem, setSem ] = useState(() => {
-        const stored = localStorage.getItem("sem");
-        return stored ? JSON.parse(stored) : null;
-    });
-    const { user, api } = useAuth();
 
     const totalUnits = subs.reduce(
         (sum, subject) => sum + subject.units,
         0
     );
-
+    
     useEffect(() => {
         const fetchData = async () => {
-            const resSubs = await api.get(`/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`)
-            setSubs(resSubs.data.subjects)
+            const resSem = await api.get("/student/semester");
 
-            const res = await api.get(`/student/info/${user.id}`)
-            setInfo(res.data.user)
+            const semester = resSem.data.semesters;
+
+            setSem(semester);
+
+            const [resSubs, resInfo] = await Promise.all([
+                api.get(
+                    `/student/subjects/${user.id}/${semester.semester}/${semester.acad_year}`
+                ),
+                api.get(`/student/info/${user.id}`),
+            ]);
+
+            setInfo(resInfo.data.user);
+            setSubs(resSubs.data.subjects);
         };
 
         fetchData();
-    }, []);
-
+    }, [user.id]);
 
     useEffect(() => {
         const formatDateTime = () => {
@@ -138,14 +144,14 @@ export default function Enrollment() {
                                     <h5 className="text-green-900 text-[12px]">
                                         Semester
                                     </h5>
-                                    <h5 className="text-sm">{sem?.[0].semester}</h5>
+                                    <h5 className="text-sm">{sem.semester}</h5>
                                 </div>
 
                                 <div className="uppercase">
                                     <h5 className="text-green-900 text-[12px]">
                                         School Year
                                     </h5>
-                                    <h5 className="text-sm">{sem?.[0].acad_year}</h5>
+                                    <h5 className="text-sm">{sem?.acad_year}</h5>
                                 </div>
                             </div>
 
@@ -185,7 +191,7 @@ export default function Enrollment() {
                                     </h5>
 
                                     <h5 className="text-sm break-words">
-                                        {sem?.[1].program + " - " + info?.year_level }
+                                        {info?.program + " - " + info?.year_level }
                                     </h5>
                                 </div>
 
@@ -252,7 +258,7 @@ export default function Enrollment() {
                                 </thead>
 
                                 <tbody className="text-[10px] sm:text-xs divide-y divide-slate-200">
-                                    {subs.map((data) => (
+                                    {subs?.map((data) => (
                                         <tr key={data.id} className="hover:bg-slate-50">
                                             <td className="px-4 py-4 font-medium text-slate-900 whitespace-nowrap">
                                                 {data.sub_code}

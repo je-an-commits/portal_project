@@ -16,6 +16,7 @@ export default function Grade() {
         };
         fetchData();
     }, []);
+    
    return (
       <>
          <SideBar />
