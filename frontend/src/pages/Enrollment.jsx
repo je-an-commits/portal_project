@@ -2,17 +2,62 @@
 import { FileDown } from "lucide-react";
 import HeadBar from "../components/HeadBar";
 import SideBar from "../components/SideBar";
+import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Enrollment() {
-const datas = [
-      { id: "DCIT 26", description: "Application Development and Emerging Technologies", units: "3", day: "THU", time: "10:00 AM - 1:00 PM", room: "Comlab 1" },
-      { id: "GNED 09", description: "Rizal: Life, Works and Writings", units: "3", day: "MON", time: "10:00 AM - 11:30 AM", room: "TMA 101" },
-      { id: "ITEC 100", description: "Information Assurance and Security 2", units: "3", day: "SAT", time: "10:00 AM - 1:00 PM", room: "Comlab 1" },
-      { id: "ITEC 101", description: "IT ELECTIVE 1 (Human Computer Interaction 2)", units: "3", day: "THU", time: "7:00 AM - 10:00 AM", room: "Comlab 2" },
-      { id: "ITEC 105", description: "Network Management", units: "3", day: "SAT", time: "7:00 AM - 10:00 AM", room: "Comlab 2" },
-      { id: "ITEC 106", description: "IT ELECTIVE 2 (Web System and Technologies 2)", units: "3", day: "THU", time: "1:30 PM - 4:30 PM", room: "Comlab 1" },
-      { id: "ITEC 200A", description: "CAPSTONE PROJECT AND RESEARCH 1", units: "3", day: "TBA", time: "TBA", room: "TBA" }
-   ];
+    const [dateTime, setDateTime] = useState('');
+    const [ info, setInfo ] = useState([]);
+    const [subs, setSubs] = useState([])
+    const [ sem, setSem ] = useState(() => {
+        const stored = sessionStorage.getItem("sem");
+        return stored ? JSON.parse(stored) : null;
+    });
+    const { user } = useAuth();
+
+    const totalUnits = subs.reduce(
+        (sum, subject) => sum + subject.units,
+        0
+    );
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const resSubs = await axios.get(`http://localhost:3000/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`)
+            setSubs(resSubs.data.subjects)
+
+            const res = await axios.get(`http://localhost:3000/student/info/${user.id}`)
+            setInfo(res.data.user)
+        };
+
+        fetchData();
+    }, []);
+
+
+    useEffect(() => {
+        const formatDateTime = () => {
+        const now = new Date();
+
+        // Formats to: Wednesday, 20 May 2026
+        const dateOptions = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
+        const datePart = new Intl.DateTimeFormat('en-GB', dateOptions).format(now);
+
+        // Formats to: 11:58 PM
+        const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+        const timePart = new Intl.DateTimeFormat('en-US', timeOptions).format(now);
+
+        // Combine parts with the separator
+        setDateTime(`${datePart} | ${timePart}`);
+        };
+
+        // Run immediately on mount
+        formatDateTime();
+
+        // Update every minute
+        const timer = setInterval(formatDateTime, 60000);
+
+        return () => clearInterval(timer);
+    }, []);
 
    return (
       <>
@@ -32,8 +77,8 @@ const datas = [
                         </h1>
                         <p className="text-gray-600 text-[12px] lg:text-[16px]">Manage your registration form here.</p>
                     </div>
-                    <div>
-                        <button className="flex w-full justify-center gap-2 px-3 py-2 bg-red-700 rounded-md lg:rounded-2xl font-bold text-gray-200 text-[14px] lg:text-[12px]  cursor-pointer hover:bg-red-800"><span><FileDown className="w-6 h-6 lg:w-5 lg:h-5" /> </span>DOWNLOAD PDF</button>
+                    <div className="w-full sm:w-auto">
+                        <button className="flex w-full justify-center gap-2 px-3 py-2 bg-red-700 rounded-md lg:rounded-2xl font-bold text-gray-200 text-[14px] lg:text-[12px] cursor-pointer hover:bg-red-800"><span><FileDown className="w-6 h-6 lg:w-5 lg:h-5" /> </span>DOWNLOAD PDF</button>
                     </div>
                 </div>
                 
@@ -87,21 +132,21 @@ const datas = [
                                     <h5 className="text-green-900 text-[12px]">
                                         Student Number
                                     </h5>
-                                    <h5 className="text-sm">202315112</h5>
+                                    <h5 className="text-sm">{user?.student_id}</h5>
                                 </div>
 
                                 <div className="uppercase">
                                     <h5 className="text-green-900 text-[12px]">
                                         Semester
                                     </h5>
-                                    <h5 className="text-sm">Second Semester</h5>
+                                    <h5 className="text-sm">{sem?.[0].semester}</h5>
                                 </div>
 
                                 <div className="uppercase">
                                     <h5 className="text-green-900 text-[12px]">
                                         School Year
                                     </h5>
-                                    <h5 className="text-sm">2025-2026</h5>
+                                    <h5 className="text-sm">{sem?.[0].acad_year}</h5>
                                 </div>
                             </div>
 
@@ -112,7 +157,7 @@ const datas = [
                                         Student Name
                                     </h5>
                                     <h5 className="text-sm break-words">
-                                        ABALOS, JERICO ANDREI
+                                        {user?.last_name + ", " + user?.first_name}
                                     </h5>
                                 </div>
 
@@ -128,7 +173,7 @@ const datas = [
                                         Date
                                     </h5>
                                     <h5 className="text-sm break-words">
-                                        Wednesday, 20 May 2026 | 11:58 PM
+                                        {dateTime}
                                     </h5>
                                 </div>
                             </div>
@@ -141,7 +186,7 @@ const datas = [
                                     </h5>
 
                                     <h5 className="text-sm break-words">
-                                        BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY - THIRD
+                                        {sem?.[1].program + " - " + info?.year_level }
                                     </h5>
                                 </div>
 
@@ -149,7 +194,7 @@ const datas = [
                                     <h5 className="text-green-900 text-[12px]">
                                         Section
                                     </h5>
-                                    <h5 className="text-sm">Two</h5>
+                                    <h5 className="text-sm">{info?.section}</h5>
                                 </div>
 
                                 <div className="uppercase">
@@ -173,7 +218,7 @@ const datas = [
                                     <h5 className="text-green-900 text-[12px]">
                                         Total Units
                                     </h5>
-                                    <h5 className="text-sm">21</h5>
+                                    <h5 className="text-sm">{totalUnits}</h5>
                                 </div>
                             </div>
 
@@ -184,8 +229,7 @@ const datas = [
                                 </h5>
 
                                 <h5 className="text-sm break-words">
-                                    BLOCK 13 LOT 22 SECTION 1 PHASE 1 PABAHAY,
-                                    BAGTAS, TANZA, CAVITE 4108
+                                    {info?.current_address}
                                 </h5>
                             </div>
                         </div>
@@ -199,7 +243,7 @@ const datas = [
                             <table className="min-w-[700px] w-full">
                                 <thead className="text-slate-900 text-left text-xs sm:text-sm font-semibold border-b border-slate-300 whitespace-nowrap">
                                     <tr className="bg-slate-50">
-                                        <th className="px-4 py-3.5">CODE</th>
+                                        <th className="px-4 py-3.5">COURSE CODE</th>
                                         <th className="px-4 py-3.5">DESCRIPTION</th>
                                         <th className="px-4 py-3.5">UNITS</th>
                                         <th className="px-4 py-3.5">DAY</th>
@@ -209,14 +253,14 @@ const datas = [
                                 </thead>
 
                                 <tbody className="text-[10px] sm:text-xs divide-y divide-slate-200">
-                                    {datas.map((data) => (
+                                    {subs.map((data) => (
                                         <tr key={data.id} className="hover:bg-slate-50">
                                             <td className="px-4 py-4 font-medium text-slate-900 whitespace-nowrap">
-                                                {data.id}
+                                                {data.sub_code}
                                             </td>
 
-                                            <td className="px-4 py-4 text-slate-500 min-w-[250px]">
-                                                {data.description}
+                                            <td className="px-4 py-4 text-slate-500 min-w-[250px] uppercase">
+                                                {data.sub_desc}
                                             </td>
 
                                             <td className="px-4 py-4 text-slate-500 whitespace-nowrap">
@@ -224,14 +268,14 @@ const datas = [
                                             </td>
 
                                             <td className="px-4 py-4 text-slate-500 whitespace-nowrap">
-                                                {data.day}
+                                                {data.sub_day}
                                             </td>
 
                                             <td className="px-4 py-4 text-slate-500 whitespace-nowrap">
-                                                {data.time}
+                                                {data.sub_time}
                                             </td>
 
-                                            <td className="px-4 py-4 text-slate-500 whitespace-nowrap">
+                                            <td className="px-4 py-4 text-slate-500 whitespace-nowrap uppercase">
                                                 {data.room}
                                             </td>
                                         </tr>

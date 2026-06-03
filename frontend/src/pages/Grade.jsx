@@ -1,8 +1,22 @@
-import { Cone } from "lucide-react";
+
+import { AccordionBasic } from "@/components/GradeAccordion";
 import HeadBar from "../components/HeadBar";
 import SideBar from "../components/SideBar";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 export default function Grade() {
+   const [gr, setGr] = useState([])
+    const { user } = useAuth();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get(`http://localhost:3000/student/grades/${user.id}`)
+            setGr(res.data.grades)
+        };
+        fetchData();
+    }, []);
    return (
       <>
          <SideBar />
@@ -13,23 +27,25 @@ export default function Grade() {
             </div>
 
             {/* Main Section */}
-            <main className="mt-10 lg:mt-0 p-5 min-h-[calc(100vh-80px)]">
+            <main className="mt-15 lg:mt-0 p-5 min-h-[calc(100vh-80px)]">
                
-               {/* Header
-               <div className="flex justify-between">
+               {/* Header */}
+               <div className="flex justify-between mb-5">
                   <div>
                      <h1 className="font-black text-2xl text-slate-700">
-                        COURSES
+                        GRADES
                      </h1>
 
                      <p className="text-gray-600">
-                        Manage your courses here.
+                        A complete chronological history of your academic records.
                      </p>
                   </div>
-               </div> */}
+               </div> 
+
+               <AccordionBasic grades={gr} />
 
                {/* Under Development */}
-               <div className="flex flex-col items-center justify-center text-center h-[70vh]">
+               {/* <div className="flex flex-col items-center justify-center text-center h-[70vh]">
                   
                   <div className="p-6 rounded-full bg-amber-100 mb-5 shadow-sm">
                      <Cone className="w-16 h-16 text-amber-500" />
@@ -44,7 +60,7 @@ export default function Grade() {
                      Please check back later for updates and new features.
                   </p>
 
-               </div>
+               </div> */}
             </main>
          </div>
       </>

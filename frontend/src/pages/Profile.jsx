@@ -1,8 +1,24 @@
-import { Cone } from "lucide-react";
+
 import HeadBar from "../components/HeadBar";
 import SideBar from "../components/SideBar";
+import { TabsLine } from "@/components/ProfileTab";
+import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Profile() {
+   const { user } = useAuth();
+   const [ info, setInfo ] = useState([]);
+   
+
+   useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get(`http://localhost:3000/student/info/${user.id}`)
+            setInfo(res.data.user)
+        };
+
+        fetchData();
+    }, []);
    return (
       <>
          <SideBar />
@@ -12,23 +28,26 @@ export default function Profile() {
                <HeadBar />
             </div>
             {/* Main Section */}
-            <main className="mt-10 lg:mt-0 p-5 min-h-[calc(100vh-80px)]">
+            <main className="mt-15 lg:mt-0 p-5 min-h-[calc(100vh-80px)] bg-gray-100">
                
-               {/* Header
                <div className="flex justify-between">
                   <div>
                      <h1 className="font-black text-2xl text-slate-700">
-                        COURSES
+                        PROFILE
                      </h1>
 
                      <p className="text-gray-600">
-                        Manage your courses here.
+                        Manage your personal information and security preferences.
                      </p>
                   </div>
-               </div> */}
+               </div>
+               <div className="mt-5">
+                  <TabsLine info={info} user={user} />
+               </div>
+               
 
                {/* Under Development */}
-               <div className="flex flex-col items-center justify-center text-center h-[70vh]">
+               {/* <div className="flex flex-col items-center justify-center text-center h-[70vh]">
                   
                   <div className="p-6 rounded-full bg-amber-100 mb-5 shadow-sm">
                      <Cone className="w-16 h-16 text-amber-500" />
@@ -43,7 +62,7 @@ export default function Profile() {
                      Please check back later for updates and new features.
                   </p>
 
-               </div>
+               </div> */}
             </main>
          </div>
       </>

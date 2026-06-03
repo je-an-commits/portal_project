@@ -1,18 +1,24 @@
-import { Cone } from "lucide-react";
+
 import HeadBar from "../components/HeadBar";
 import SideBar from "../components/SideBar";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 export default function Course() {
+   const [subs, setSubs] = useState([])
+   const [ sem, setSem ] = useState(() => {
+      const stored = sessionStorage.getItem("sem");
+      return stored ? JSON.parse(stored) : null;
+   });
+   const { user } = useAuth();
+   useEffect(() => {
+        const fetchData = async () => {
+            const resSubs = await axios.get(`http://localhost:3000/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`)
+            setSubs(resSubs.data.subjects)
+        };
 
-   const datas = [
-      { id: "DCIT 26", description: "Application Development and Emerging Technologies", units: "3", day: "Enrolled" },
-      { id: "GNED 09", description: "Rizal: Life, Works and Writings", units: "3", day: "Enrolled" },
-      { id: "ITEC 100", description: "Information Assurance and Security 2", units: "3", day: "Enrolled"},
-      { id: "ITEC 101", description: "IT ELECTIVE 1 (Human Computer Interaction 2)", units: "3", day: "Enrolled" },
-      { id: "ITEC 105", description: "Network Management", units: "3", day: "Enrolled" },
-      { id: "ITEC 106", description: "IT ELECTIVE 2 (Web System and Technologies 2)", units: "3", day: "Enrolled" },
-      { id: "ITEC 200A", description: "CAPSTONE PROJECT AND RESEARCH 1", units: "3", day: "Enrolled" }
-   ];
+        fetchData();
+    }, []);
    return (
       <>
          <SideBar />
@@ -39,16 +45,16 @@ export default function Course() {
                </div>
 
                <div className="w-full max-w-7xl mx-auto mt-8">
-                  <div className="flex align-center justify-between p-5 rounded-t-2xl bg-green-900">
-                     <h1 className="text-[12px] lg:text-[16px] font-bold text-white uppercase">Enrolled Subjects</h1>
-                     <h1 className="text-[12px] lg:text-[14px] font-bold text-yellow-400 uppercase">second semester | 2025-2026</h1>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 p-4 sm:p-5 rounded-t-2xl bg-green-900">
+                     <h1 className="text-[12px] sm:text-[16px] font-bold text-white uppercase">Enrolled Subjects</h1>
+                     <h1 className="text-[10px] sm:text-[14px] font-bold text-yellow-400 uppercase whitespace-nowrap">{sem?.[0].semester + " | " + sem?.[0].acad_year}</h1>
                   </div>
                         
                         <div className="border border-slate-200 rounded-md overflow-x-auto">
                             <table className="min-w-[700px] w-full">
                                 <thead className="text-slate-900 text-left text-xs sm:text-sm font-semibold border-b border-slate-300 whitespace-nowrap">
                                     <tr className="bg-slate-50">
-                                        <th className="px-4 py-3.5">CODE</th>
+                                        <th className="px-4 py-3.5">COURSE CODE</th>
                                         <th className="px-4 py-3.5">DESCRIPTION</th>
                                         <th className="px-4 py-3.5">UNITS</th>
                                         <th className="px-4 py-3.5">Status</th>
@@ -56,31 +62,29 @@ export default function Course() {
                                 </thead>
 
                                 <tbody className="text-[10px] sm:text-xs divide-y divide-slate-200">
-                                    {datas.map((data) => (
+                                    {subs.map((data) => (
                                         <tr key={data.id} className="hover:bg-slate-50">
                                             <td className="px-4 py-4 font-medium text-slate-900 whitespace-nowrap">
-                                                {data.id}
+                                                {data.sub_code}
                                             </td>
 
-                                            <td className="px-4 py-4 text-slate-500 min-w-[250px]">
-                                                {data.description}
+                                            <td className="px-4 py-4 text-slate-500 min-w-[250px] uppercase">
+                                                {data.sub_desc}
                                             </td>
 
-                                            <td className="px-4 py-4 text-slate-500 whitespace-nowrap">
+                                            <td className="px-4 py-4 text-slate-500 whitespace-nowrap uppercase">
                                                 {data.units}
                                             </td>
 
-                                            <td className={`px-4 py-4 whitespace-nowrap ${ data.day === "Enrolled" ? "text-green-900 font-bold" : "text-slate-500"}`}>
-                                                {data.day}
+                                            <td className={`px-4 py-4 whitespace-nowrap uppercase ${ data.status === "Enrolled" ? "text-green-900 font-bold" : "text-slate-500"}`}>
+                                                {data.status}
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-
-               
+                    </div>  
             </main>
          </div>
       </>

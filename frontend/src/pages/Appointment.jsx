@@ -13,7 +13,7 @@ export default function Appointment() {
             </div>
 
             {/* Main Section */}
-            <main className="mt-10 lg:mt-0 p-5 min-h-[calc(100vh-80px)]">
+            <main className="mt-15 lg:mt-0 p-5 min-h-[calc(100vh-80px)]">
                
                {/* Header
                <div className="flex justify-between">

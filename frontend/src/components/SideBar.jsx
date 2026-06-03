@@ -64,12 +64,14 @@ export default function SideBar() {
    ];
 
    function logout() {
-    navigate("/");
+      sessionStorage.clear();
+
+      navigate("/");
    }
    return (
     <>
          {/* Top bar (mobile) */}
-         <div className="flex lg:hidden p-4 justify-between align-center bg-green-900 text-gray-200 fixed top-0  w-full">
+         <div className="flex lg:hidden p-4 justify-between items-center bg-green-900 text-gray-200 fixed top-0  w-full">
             <button onClick={() => setOpen(true)}>
                <Menu className="cursor-pointer" size={24} />
             </button>
@@ -88,7 +90,7 @@ export default function SideBar() {
          {/* Sidebar */}
          <aside
             className={`
-               fixed top-0 left-0 z-50 h-full w-[264px] bg-white dark:bg-neutral-900
+               fixed top-0 left-0 z-50 h-full w-[264px] bg-neutral-900
                border-r border-slate-300 dark:border-neutral-700
                transform transition-transform duration-300
                ${open ? "translate-x-0" : "-translate-x-full"}
@@ -107,7 +109,7 @@ export default function SideBar() {
             <div className="flex gap-3 mb-8 px-3">
                <img src="./logo.png" className="h-9 w-auto" />
                <div>
-                  <h1 className="font-black dark:text-white">
+                  <h1 className="font-black text-white">
                      STUDENT PORTAL
                   </h1>
                   <h3 className="text-gray-400 text-[12px]">
@@ -127,7 +129,7 @@ export default function SideBar() {
                                 ${
                                 isActive
                                     ? "bg-green-800 text-white"
-                                    : "text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-neutral-800"
+                                    : "text-slate-400 hover:bg-slate-800"
                                 }`
 
                             }

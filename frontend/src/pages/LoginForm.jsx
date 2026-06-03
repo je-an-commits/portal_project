@@ -1,38 +1,45 @@
 import { useState } from "react";
-import { Lock, Eye, EyeOff, User, LoaderCircle } from "lucide-react";
+import { Lock, Eye, EyeOff, User, LoaderCircle} from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { toast } from "sonner";
 
 export default function LoginForm() {
+   const { api, setToken, setUser } = useAuth();
    const navigate = useNavigate();
-   const [username, setUsername] = useState("");
+   const [stud_id, setStudID] = useState("");
    const [password, setPassword] = useState("");
    const [showPassword, setShowPassword] = useState(false);
    const [loading, setLoading] = useState(false);
 
-   const dummyAcc = {
-      studID: '202315112',
-      pass: '12345'
-   }
 
-   const handleLogin = (e) => {
+   const handleLogin = async (e) => {
       e.preventDefault();
       setLoading(true);
 
-      setTimeout(() => {
-         if (
-            username === dummyAcc.studID &&
-            password === dummyAcc.pass
-         ) {
-            navigate("/dashboard");
+      try{
+         const res = await api.post("/login", { student_id: stud_id, password: password} );
+         setToken(res.data.accessToken);
+         setUser(res.data.user);
+         sessionStorage.setItem("accessToken", res.data.accessToken); 
+         sessionStorage.setItem("user", JSON.stringify(res.data.user));  
+         navigate("/dashboard")
+      }
+      catch(err){
+         const data = err.response?.data;
+         if (data?.error) {
+            toast.error(data.error, { position: "top-right"});
          } else {
-            alert("Invalid Credentials");
+            toast.error(data?.message || "Something went wrong", { position: "top-right"});
          }
-         setLoading(false);
-      }, 2000)
-      
+      }
+      setLoading(false);
    };
 
+
+
    return (
+      <>
       <main className="bg-gray-50 px-4 md:px-8 dark:bg-neutral-900">
          <div className="min-h-screen flex flex-col items-center justify-center">
             <div className="max-w-md w-full">
@@ -47,14 +54,14 @@ export default function LoginForm() {
 
                   <form className="space-y-6 mt-10" onSubmit={handleLogin}>
                      <div>
-                        <label htmlFor="username"
+                        <label htmlFor="stud_id"
                            className="mb-2 text-slate-900 font-medium text-sm inline-block dark:text-slate-50">STUDENT NUMBER</label>
                         <div className="relative group">
                            <User
                               size={18}
                               className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-green-600 transition-colors"
                            />
-                           <input type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter student number" required
+                           <input type="text" id="stud_id" name="stud_id" value={stud_id} onChange={(e) => setStudID(e.target.value)} placeholder="Enter student number" required
                               className="px-3 py-2.5 pl-10 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-green-800 dark:text-slate-50 dark:bg-neutral-700 dark:outline-neutral-600" />
                         </div>
                      </div>
@@ -92,7 +99,7 @@ export default function LoginForm() {
                               onClick={() => setShowPassword(!showPassword)}
                               className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-slate-400 hover:text-blue-600 transition-colors"
                            >
-                              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                              {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                            </button>
 
                         </div>
@@ -142,5 +149,7 @@ export default function LoginForm() {
             </div>
          </div>
       </main>
+      </>
+      
    );
 }
