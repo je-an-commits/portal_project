@@ -27,7 +27,7 @@ export default function Profile() {
                <HeadBar />
             </div>
             {/* Main Section */}
-            <main className="mt-15 lg:mt-0 p-5 min-h-[calc(100vh-80px)] bg-gray-100">
+            <main className="mt-16 lg:mt-0 p-5 min-h-[calc(100vh_-_80px)] bg-gray-100">
                
                <div className="flex justify-between">
                   <div>

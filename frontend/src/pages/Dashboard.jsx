@@ -31,7 +31,7 @@ export default function Dashboard() {
                <HeadBar />
             </div>
             {/* Main Section */}
-            <main className="mt-15 lg:mt-0 flex flex-col lg:flex-row px-5 gap-5 py-10 min-h-[calc(100vh-80px)]">
+            <main className="mt-16 lg:mt-0 flex flex-col lg:flex-row px-5 gap-5 py-10 min-h-[calc(100vh_-_80px)]">
                 <div className="flex flex-col gap-5 lg:w-[70%]">
                     <div className="px-4 py-6 sm:px-8 sm:py-8 shadow-sm w-full rounded-2xl bg-gradient-to-r from-green-900 via-green-800 to-green-700">
                         <div className="border-b-1 border-green-600 pb-3 mb-5">

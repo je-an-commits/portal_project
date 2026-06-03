@@ -8,18 +8,19 @@ export default function Course() {
    const [ sem, setSem ] = useState([]);
    const { user, api } = useAuth();
    useEffect(() => {
+        if(!user) return;
         const fetchData = async () => {
             const resSem = await api.get("/student/semester");
             const semester = resSem.data.semesters;
             setSem(semester);
 
             if(!semester) return;
-            const resSubs = await api.get(`/student/subjects/${user.id}/${sem.semester}/${sem.acad_year}`)
+            const resSubs = await api.get(`/student/subjects/${user.id}/${semester.semester}/${semester.acad_year}`)
             setSubs(resSubs.data.subjects)
         };
 
         fetchData();
-    }, [sem]);
+    }, [user]);
    return (
       <>
          <SideBar />
@@ -30,7 +31,7 @@ export default function Course() {
             </div>
 
             {/* Main Section */}
-            <main className="mt-15 lg:mt-0 p-5 min-h-[calc(100vh-80px)]">
+            <main className="mt-16 lg:mt-0 p-5 min-h-[calc(100vh_-_80px)]">
                
                
                <div className="flex justify-between">

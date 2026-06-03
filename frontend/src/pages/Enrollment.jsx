@@ -18,7 +18,7 @@ export default function Enrollment() {
     );
     
     useEffect(() => {
-        if(!sem) return;
+        if(!user) return;
         const fetchData = async () => {
             const resSem = await api.get("/student/semester");
 
@@ -38,7 +38,7 @@ export default function Enrollment() {
         };
 
         fetchData();
-    }, [sem]);
+    }, [user]);
 
     useEffect(() => {
         const formatDateTime = () => {
@@ -75,7 +75,7 @@ export default function Enrollment() {
             </div>
             {/* Main Section */}
 
-            <main className="mt-15 lg:mt-0 p-5 min-h-[calc(100vh-80px)]">
+            <main className="mt-16 lg:mt-0 p-5 min-h-[calc(100vh_-_80px)]">
                 <div className="flex flex-col gap-4 lg:flex-row justify-between">
                     <div>
                         <h1 className="font-black text-lg lg:text-2xl text-slate-700">
