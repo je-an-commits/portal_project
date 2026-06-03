@@ -7,22 +7,21 @@ import { useEffect, useState } from "react";
 export default function Dashboard() {
    const { user, api } = useAuth();
    const [ sem, setSem ] = useState([]);
+   const [ prog, setProg] = useState([]);
 
    useEffect(() => {
-    if(!user) return;
+    if(!user || !sem) return;
         const fetchData = async () => {
             const [resSem, resProg ] = await Promise.all([
                 api.get("/student/semester"),
                 api.get(`/student/program/${user.id}`)
             ]) 
-            setSem([
-                resSem.data.semesters,
-                resProg.data.prog
-            ])
+            setSem(resSem.data.semesters)
+            setProg(resProg.data.prog)
         };
 
         fetchData();
-    }, [user]);
+    }, [user, sem]);
    return (
       <>
         <SideBar />
@@ -48,7 +47,7 @@ export default function Dashboard() {
                             </div>
                             <div>
                                 <h1 className="text-[12px] font-bold text-green-400">ACADEMIC PROGRAM</h1>
-                                <p className="text-sm lg:text-l font-black text-gray-200">{sem?.[1]?.program}</p>
+                                <p className="text-sm lg:text-l font-black text-gray-200">{prog.program}</p>
                             </div>
                         </div>
                     </div>
@@ -75,8 +74,8 @@ export default function Dashboard() {
                     <div className="flex flex-col text-center justify-center items-center shadow-sm rounded-2xl">
                         <h3 className="text-[12px] text-gray-200 rounded-t-2xl font-bold bg-yellow-600 w-full overflow-hidden py-4 sm:py-5">ACTIVE TERM</h3>
                         <div className="flex flex-col gap-2 p-5">
-                            <h2 className="text-l font-bold text-slate-700">{sem?.[0]?.acad_year}</h2>
-                            <h1 className="text-xl font-black text-green-900">{sem?.[0]?.semester}</h1>
+                            <h2 className="text-l font-bold text-slate-700">{sem.acad_year}</h2>
+                            <h1 className="text-xl font-black text-green-900">{sem.semester}</h1>
                         </div>
                     </div>
 

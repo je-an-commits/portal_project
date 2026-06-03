@@ -18,6 +18,7 @@ export default function Enrollment() {
     );
     
     useEffect(() => {
+        if(!sem) return;
         const fetchData = async () => {
             const resSem = await api.get("/student/semester");
 
@@ -37,7 +38,7 @@ export default function Enrollment() {
         };
 
         fetchData();
-    }, [user.id]);
+    }, [sem]);
 
     useEffect(() => {
         const formatDateTime = () => {
