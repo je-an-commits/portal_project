@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 export default function Course() {
    const [subs, setSubs] = useState([])
    const [ sem, setSem ] = useState(() => {
-      const stored = sessionStorage.getItem("sem");
+      const stored = localStorage.getItem("sem");
       return stored ? JSON.parse(stored) : null;
    });
    const { user, api } = useAuth();

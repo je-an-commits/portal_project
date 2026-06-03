@@ -21,8 +21,8 @@ export default function LoginForm() {
          const res = await api.post("/auth/login", { student_id: stud_id, password: password} );
          setToken(res.data.accessToken);
          setUser(res.data.user);
-         sessionStorage.setItem("accessToken", res.data.accessToken); 
-         sessionStorage.setItem("user", JSON.stringify(res.data.user));  
+         localStorage.setItem("accessToken", res.data.accessToken); 
+         localStorage.setItem("user", JSON.stringify(res.data.user));  
          navigate("/dashboard")
       }
       catch(err){

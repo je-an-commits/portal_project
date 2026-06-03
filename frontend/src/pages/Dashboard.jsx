@@ -19,7 +19,7 @@ export default function Dashboard() {
                 resSem.data.semesters,
                 resProg.data.prog
             ])
-            sessionStorage.setItem("sem", JSON.stringify([resSem.data.semesters, resProg.data.prog]))
+            localStorage.setItem("sem", JSON.stringify([resSem.data.semesters, resProg.data.prog]))
         };
 
         fetchData();

@@ -10,7 +10,7 @@ export default function Enrollment() {
     const [ info, setInfo ] = useState([]);
     const [subs, setSubs] = useState([])
     const [ sem, setSem ] = useState(() => {
-        const stored = sessionStorage.getItem("sem");
+        const stored = localStorage.getItem("sem");
         return stored ? JSON.parse(stored) : null;
     });
     const { user, api } = useAuth();
