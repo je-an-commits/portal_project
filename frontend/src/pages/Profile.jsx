@@ -13,7 +13,7 @@ export default function Profile() {
 
    useEffect(() => {
         const fetchData = async () => {
-            const res = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/info/${user.id}`)
+            const res = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/info/${user.id}`, { withCredentials: true })
             setInfo(res.data.user)
         };
 

@@ -13,7 +13,7 @@ export default function Course() {
    const { user } = useAuth();
    useEffect(() => {
         const fetchData = async () => {
-            const resSubs = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`)
+            const resSubs = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`, { withCredentials: true })
             setSubs(resSubs.data.subjects)
         };
 
