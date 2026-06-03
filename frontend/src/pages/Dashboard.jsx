@@ -13,8 +13,8 @@ export default function Dashboard() {
     if(!user) return;
         const fetchData = async () => {
             const [resSem, resProg ] = await Promise.all([
-                axios.get("http://localhost:3000/student/semester"),
-                axios.get(`http://localhost:3000/student/program/${user.id}`, )
+                axios.get("https://heartbroken-mattie-cuter.ngrok-free.dev/student/semester"),
+                axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/program/${user.id}`, )
             ]) 
             setSem([
                 resSem.data.semesters,

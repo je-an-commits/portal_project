@@ -12,7 +12,7 @@ export default function Grade() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await axios.get(`http://localhost:3000/student/grades/${user.id}`)
+            const res = await axios.get(` https://heartbroken-mattie-cuter.ngrok-free.dev/student/grades/${user.id}`)
             setGr(res.data.grades)
         };
         fetchData();

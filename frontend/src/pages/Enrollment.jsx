@@ -23,10 +23,10 @@ export default function Enrollment() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const resSubs = await axios.get(`http://localhost:3000/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`)
+            const resSubs = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`)
             setSubs(resSubs.data.subjects)
 
-            const res = await axios.get(`http://localhost:3000/student/info/${user.id}`)
+            const res = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/info/${user.id}`)
             setInfo(res.data.user)
         };
 

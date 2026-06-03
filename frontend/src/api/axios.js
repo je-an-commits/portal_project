@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/auth",
+  baseURL: "https://heartbroken-mattie-cuter.ngrok-free.dev/auth",
   withCredentials: true,
 });
 

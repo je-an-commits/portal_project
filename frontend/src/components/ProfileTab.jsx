@@ -51,7 +51,7 @@ export function TabsLine(props) {
          newPassword: newPass
       }
       try{
-         const res = await axios.post("http://localhost:3000/auth/reset-password", data)
+         const res = await axios.post(" https://heartbroken-mattie-cuter.ngrok-free.dev/auth/reset-password", data)
          toast.success(res.data.message);
 
           setLoading(false);
