@@ -3,16 +3,15 @@ import { AccordionBasic } from "@/components/GradeAccordion";
 import HeadBar from "../components/HeadBar";
 import SideBar from "../components/SideBar";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
 export default function Grade() {
    const [gr, setGr] = useState([])
-    const { user } = useAuth();
+    const { user, api } = useAuth();
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/grades/${user.id}`, { withCredentials: true })
+            const res = await api.get(`/student/grades/${user.id}`)
             setGr(res.data.grades)
         };
         fetchData();

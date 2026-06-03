@@ -2,7 +2,6 @@
 import HeadBar from "../components/HeadBar";
 import SideBar from "../components/SideBar";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 export default function Course() {
    const [subs, setSubs] = useState([])
@@ -10,10 +9,10 @@ export default function Course() {
       const stored = sessionStorage.getItem("sem");
       return stored ? JSON.parse(stored) : null;
    });
-   const { user } = useAuth();
+   const { user, api } = useAuth();
    useEffect(() => {
         const fetchData = async () => {
-            const resSubs = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`, { withCredentials: true })
+            const resSubs = await api.get(`/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`)
             setSubs(resSubs.data.subjects)
         };
 

@@ -20,7 +20,6 @@ import { BookUser, Contact, ShieldCheck, User, EyeOffIcon, EyeIcon, LoaderCircle
 import { useState } from "react";
 import { Button } from "./ui/button"
 import { useAuth } from "../context/AuthContext";
-import axios from "axios";
 import { toast } from "sonner";
 
 export function TabsLine(props) {
@@ -30,8 +29,8 @@ export function TabsLine(props) {
   const [showConfirm, setShowConfirm] = useState(false);
   const date = new Date(props.info.birthdate);
   const formatted = date.toLocaleDateString();
-  const { user } = useAuth();
-  const [ currentPass, setCurrentPass ] = useState("");
+   const { user, api } = useAuth();
+   const [ currentPass, setCurrentPass ] = useState("");
   const [ newPass, setNewPass ] = useState("");
   const [ confirmPass, setConfirmPass] = useState("");
   const [loading, setLoading] = useState(false);
@@ -51,7 +50,7 @@ export function TabsLine(props) {
          newPassword: newPass
       }
       try{
-         const res = await axios.post("https://heartbroken-mattie-cuter.ngrok-free.dev/auth/reset-password", data, { withCredentials: true })
+         const res = await api.post("/auth/reset-password", data)
          toast.success(res.data.message);
 
           setLoading(false);

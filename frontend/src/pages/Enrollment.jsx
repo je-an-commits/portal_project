@@ -4,7 +4,6 @@ import HeadBar from "../components/HeadBar";
 import SideBar from "../components/SideBar";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 export default function Enrollment() {
     const [dateTime, setDateTime] = useState('');
@@ -14,7 +13,7 @@ export default function Enrollment() {
         const stored = sessionStorage.getItem("sem");
         return stored ? JSON.parse(stored) : null;
     });
-    const { user } = useAuth();
+    const { user, api } = useAuth();
 
     const totalUnits = subs.reduce(
         (sum, subject) => sum + subject.units,
@@ -23,10 +22,10 @@ export default function Enrollment() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const resSubs = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`, { withCredentials: true })
+            const resSubs = await api.get(`/student/subjects/${user.id}/${sem?.[0].semester}/${sem?.[0].acad_year}`)
             setSubs(resSubs.data.subjects)
 
-            const res = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/info/${user.id}`, { withCredentials: true })
+            const res = await api.get(`/student/info/${user.id}`)
             setInfo(res.data.user)
         };
 

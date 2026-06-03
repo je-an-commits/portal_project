@@ -4,17 +4,16 @@ import HeadBar from "../components/HeadBar";
 import SideBar from "../components/SideBar";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
-import axios from "axios";
 export default function Dashboard() {
-   const { user } = useAuth();
+   const { user, api } = useAuth();
    const [ sem, setSem ] = useState([]);
 
    useEffect(() => {
     if(!user) return;
         const fetchData = async () => {
             const [resSem, resProg ] = await Promise.all([
-                axios.get("https://heartbroken-mattie-cuter.ngrok-free.dev/student/semester", { withCredentials: true }),
-                axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/program/${user.id}`, { withCredentials: true } )
+                api.get("/student/semester"),
+                api.get(`/student/program/${user.id}`)
             ]) 
             setSem([
                 resSem.data.semesters,

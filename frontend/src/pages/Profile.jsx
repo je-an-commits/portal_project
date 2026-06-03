@@ -4,16 +4,15 @@ import SideBar from "../components/SideBar";
 import { TabsLine } from "@/components/ProfileTab";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 export default function Profile() {
-   const { user } = useAuth();
+   const { user, api } = useAuth();
    const [ info, setInfo ] = useState([]);
    
 
    useEffect(() => {
         const fetchData = async () => {
-            const res = await axios.get(`https://heartbroken-mattie-cuter.ngrok-free.dev/student/info/${user.id}`, { withCredentials: true })
+            const res = await api.get(`/student/info/${user.id}`)
             setInfo(res.data.user)
         };
 
