@@ -22,7 +22,7 @@ export default function Dashboard() {
         };
 
         fetchData();
-    }, []);
+    }, [user]);
    return (
       <>
         <SideBar />
