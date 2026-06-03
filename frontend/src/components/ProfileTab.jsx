@@ -69,8 +69,6 @@ export function TabsLine(props) {
      
    }
 
-   console.log(props)
-
   return (
     <Tabs defaultValue="overview">
       <TabsList variant="line">

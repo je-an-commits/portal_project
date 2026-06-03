@@ -69,9 +69,6 @@ export function AccordionBasic(props) {
     if (semesters.length === 0) {
         return null;
     }
-
-
-    console.log(semesters)
     
     return (
         <Accordion type="single" collapsible  defaultValue={semesters[0].key}>

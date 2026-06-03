@@ -22,8 +22,7 @@ export default function Dashboard() {
                 setProg(resProg.data.prog)
             }finally{
                 setLoading(false)
-            }
-            
+            } 
         };
 
         fetchData();
