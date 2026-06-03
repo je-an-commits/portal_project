@@ -71,7 +71,7 @@ export default function SideBar() {
    return (
     <>
          {/* Top bar (mobile) */}
-         <div className="flex lg:hidden p-4 justify-between items-center bg-green-900 text-gray-200 fixed top-0  w-full">
+         <div className="flex lg:hidden z-[100] p-4 justify-between items-center bg-green-900 text-gray-200 fixed top-0  w-full">
             <button onClick={() => setOpen(true)}>
                <Menu className="cursor-pointer" size={24} />
             </button>
@@ -90,7 +90,7 @@ export default function SideBar() {
          {/* Sidebar */}
          <aside
             className={`
-               fixed top-0 left-0 z-50 h-full w-[264px] bg-neutral-900
+               fixed top-0 left-0 z-150 h-full w-[264px] bg-neutral-900
                border-r border-slate-300 dark:border-neutral-700
                transform transition-transform duration-300
                ${open ? "translate-x-0" : "-translate-x-full"}
