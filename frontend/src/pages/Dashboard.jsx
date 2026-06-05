@@ -1,5 +1,5 @@
 
-import { CalendarCheck, Clock, Coffee, NotepadText, TicketCheck } from "lucide-react";
+import { CalendarCheck, Clock, Coffee, NotepadText, TicketCheck, LoaderCircle } from "lucide-react";
 import HeadBar from "../components/HeadBar";
 import SideBar from "../components/SideBar";
 import { useAuth } from "../context/AuthContext";
@@ -40,7 +40,12 @@ export default function Dashboard() {
         fetchData();
     }, [user?.id]);
     if(loading){
-        return <div className="w-full h-[100vh] flex items-center justify-center">Loading...</div>
+        return <div className="w-full h-[100vh] flex items-center justify-center">
+                    <LoaderCircle
+                        size={48}
+                        className="animate-spin"
+                    />
+                </div>
     }
     function nav(){
         navigate("/appointment")
