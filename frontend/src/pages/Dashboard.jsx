@@ -4,24 +4,32 @@ import HeadBar from "../components/HeadBar";
 import SideBar from "../components/SideBar";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
+
+
 export default function Dashboard() {
+    const navigate = useNavigate();
    const { user, api } = useAuth();
    const [ sem, setSem ] = useState([]);
    const [ prog, setProg] = useState([]);
    const [ loading, setLoading] = useState(true);
+   const [ item, setItem ] = useState([]);
 
    useEffect(() => {
     if (!user?.id) return;
 
     const fetchData = async () => {
             try {
-            const [resSem, resProg] = await Promise.all([
+            const [resSem, resProg, resApp] = await Promise.all([
                 api.get("/student/semester"),
-                api.get(`/student/program/${user.id}`)
+                api.get(`/student/program/${user.id}`),
+                api.get(`/student/appointment/current/${user.id}`)
             ]);
 
             setSem(resSem.data.semesters);
             setProg(resProg.data.prog);
+            setItem(resApp.data.result[0])
             } catch(err) {
             console.error("Failed to fetch dashboard data:", err)
             } finally {
@@ -34,6 +42,9 @@ export default function Dashboard() {
     if(loading){
         return <div>Loading...</div>
     }
+    function nav(){
+        navigate("/appointment")
+    }
    return (
       <>
         <SideBar />
@@ -43,7 +54,7 @@ export default function Dashboard() {
                <HeadBar />
             </div>
             {/* Main Section */}
-            <main className="mt-16 lg:mt-0 flex flex-col lg:flex-row px-5 gap-5 py-10 min-h-[calc(100vh_-_80px)]">
+            <main className="mt-16 lg:mt-0 flex flex-col lg:flex-row px-5 gap-5 py-10 min-h-[calc(100vh_-_80px)] bg-gray-100">
                 <div className="flex flex-col gap-5 lg:w-[70%]">
                     <div className="px-4 py-6 sm:px-8 sm:py-8 shadow-sm w-full rounded-2xl bg-gradient-to-r from-green-900 via-green-800 to-green-700">
                         <div className="border-b-1 border-green-600 pb-3 mb-5">
@@ -113,17 +124,39 @@ export default function Dashboard() {
                                     <CalendarCheck size={16} className="shrink-0" />
                                     <h3>RECENT APPOINTMENTS</h3>
                                 </div>
-                                <a href="" className="whitespace-nowrap">Manage</a>
+                                <a onClick={nav} className="whitespace-nowrap cursor-pointer">Manage</a>
                             </div>
-                            <div className="flex pt-5 items-center justify-center text-center">
-                                <div className="p-2 w-10 h-10 bg-yellow-100 rounded-full">
-                                    <TicketCheck size={24} className="text-yellow-300" />
-                                </div> 
-                            </div>
-                            <p className="text-center text-[13px] sm:text-[14px] text-slate-700 font-semibold px-4 sm:px-10">You have no upcoming appointments at the Registrar's Office.</p>
-                            <button className="outline-none bg-green-900 text-gray-100 mx-auto py-1 px-4 my-2 rounded-4xl text-[12px] hover:bg-green-800 cursor-pointer transition" >
-                                Book Appointment
-                            </button>
+                            {!item ? (
+                                <>
+                                     <div className="flex pt-5 items-center justify-center text-center">
+                                        <div className="p-2 w-10 h-10 bg-yellow-100 rounded-full">
+                                            <TicketCheck size={24} className="text-yellow-300" />
+                                        </div> 
+                                    </div>
+                                    <p className="text-center text-[13px] sm:text-[14px] text-slate-700 font-semibold px-4 sm:px-10">You have no upcoming appointments at the Registrar's Office.</p>
+                                    <button onClick={nav} className="outline-none bg-green-900 text-gray-100 mx-auto py-1 px-4 my-2 rounded-4xl text-[12px] hover:bg-green-800 cursor-pointer transition" >
+                                        Book Appointment
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="flex justify-between p-5">
+                                          <div className="flex gap-5">
+                                             <div className="flex flex-col justify-center items-center border bg-white">
+                                                <p className="bg-red-600 px-2 font-bold text-white">{format(new Date(item.appointment_date), "MMMM")}</p>
+                                                <p className="text-xl">{format(new Date(item.appointment_date), "d")}</p>
+                                             </div>
+                                             
+                                 
+                                             <div>
+                                                <p>{format(new Date(item.appointment_date), "EEE") + " " +item.time_slot}</p>
+                                                <p>{item.purpose}</p>
+                                             </div> 
+                                          </div>
+                                       </div>
+                                </>
+                            )}
+                           
                         </div>
                 </div>
                 

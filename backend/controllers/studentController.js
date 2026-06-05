@@ -58,3 +58,46 @@ export const getGrades = async (req, res) => {
         grades
     });
 }
+
+export const createAppointment = async (req, res) => {
+  try {
+    const { date, time, purpose, id } = req.body;
+
+    const appointment = await StudentModel.createApp(
+      date,
+      time,
+      purpose,
+      id
+    );
+
+    return res.status(201).json({
+      appointment,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
+export const getApp = async (req, res) => {
+    const id = req.params.id;
+    const result = await StudentModel.getAppointment(id);
+    if(!result){
+        return res.status(404).json({ error: "No grades found!" });
+    }
+    return res.status(200).json({
+        result
+    });
+}
+
+export const getCurrentApp = async (req, res) => {
+    const id = req.params.id;
+    const result = await StudentModel.getCurrentApp(id);
+    if(!result){
+        return res.status(404).json({ error: "No grades found!" });
+    }
+    return res.status(200).json({
+        result
+    });
+}

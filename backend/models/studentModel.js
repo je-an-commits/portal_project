@@ -64,3 +64,36 @@ export const getGrade = async (id) => {
 
     return records;
 };
+
+export const createApp = async (date, time, purpose, id) => {
+  const appointment = await db
+    .insertInto("appoinment")
+    .values({
+      appointment_date: date,
+      time_slot: time,
+      purpose: purpose,
+      student_id: id,
+    })
+    .executeTakeFirst();
+
+  return appointment;
+};
+
+export const getAppointment = async (id) => {
+    return await db
+    .selectFrom("appoinment")
+    .selectAll()
+    .where('student_id', '=', id)
+    .orderBy('id', 'desc')
+    .execute();
+};
+
+export const getCurrentApp = async (id) => {
+    return await db
+    .selectFrom("appoinment")
+    .selectAll()
+    .where('student_id', '=', id)
+    .where('status', '=', 'CONFIRMED')
+    .orderBy('appointment_date', 'asc')
+    .execute();
+};

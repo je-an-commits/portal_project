@@ -31,11 +31,11 @@ export default function Profile() {
                
                <div className="flex justify-between">
                   <div>
-                     <h1 className="font-black text-2xl text-slate-700">
+                     <h1 className="font-black text-xl lg:text-2xl text-slate-700">
                         PROFILE
                      </h1>
 
-                     <p className="text-gray-600">
+                     <p className="text-gray-600 text-[12px] lg:text-[16px]">
                         Manage your personal information and security preferences.
                      </p>
                   </div>

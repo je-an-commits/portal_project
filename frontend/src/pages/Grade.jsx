@@ -32,16 +32,16 @@ export default function Grade() {
             </div>
 
             {/* Main Section */}
-            <main className="mt-16 lg:mt-0 p-5 min-h-[calc(100vh_-_80px)]">
+            <main className="mt-16 lg:mt-0 p-5 min-h-[calc(100vh_-_80px)] bg-gray-100">
                
                {/* Header */}
                <div className="flex justify-between mb-5">
                   <div>
-                     <h1 className="font-black text-2xl text-slate-700">
+                     <h1 className="font-black text-xl lg:text-2xl text-slate-700">
                         GRADES
                      </h1>
 
-                     <p className="text-gray-600">
+                     <p className="text-gray-600 text-[12px] lg:text-[16px]">
                         A complete chronological history of your academic records.
                      </p>
                   </div>

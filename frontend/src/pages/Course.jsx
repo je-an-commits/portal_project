@@ -35,7 +35,7 @@ export default function Course() {
             </div>
 
             {/* Main Section */}
-            <main className="mt-16 lg:mt-0 p-5 min-h-[calc(100vh_-_80px)]">
+            <main className="mt-16 lg:mt-0 p-5 min-h-[calc(100vh_-_80px)] bg-gray-100">
                
                
                <div className="flex justify-between">
@@ -62,7 +62,7 @@ export default function Course() {
                                     <tr className="bg-slate-50">
                                         <th className="px-4 py-3.5">COURSE CODE</th>
                                         <th className="px-4 py-3.5">DESCRIPTION</th>
-                                        <th className="px-4 py-3.5">UNITS</th>
+                                        <th className="px-4 py-3.5 text-center">UNITS</th>
                                         <th className="px-4 py-3.5">Status</th>
                                     </tr>
                                 </thead>
@@ -78,7 +78,7 @@ export default function Course() {
                                                 {data.sub_desc}
                                             </td>
 
-                                            <td className="px-4 py-4 text-slate-500 whitespace-nowrap uppercase">
+                                            <td className="px-4 py-4 text-slate-500 whitespace-nowrap text-center uppercase">
                                                 {data.units}
                                             </td>
 
